@@ -16,7 +16,7 @@ python3 -m http.server 8080
 2. 在 GitHub repository 的 `Settings` -> `Pages` 選擇要發布的 branch 與資料夾。
 3. 發布後使用 HTTPS 網址開啟，定位與 PWA 安裝才會正常運作。
 
-若部署在 project pages，例如 `https://username.github.io/sky-color-pwa/`，目前的 `manifest.json`、Service Worker 與資源路徑已使用相對路徑，可直接運作。
+若部署在 project pages，例如 `https://Ray941216.github.io/sky-color-simulator/`，目前的 `manifest.json`、Service Worker 與資源路徑已使用相對路徑，可直接運作。
 
 ## 已修正的原始碼問題
 
