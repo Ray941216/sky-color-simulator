@@ -9,7 +9,7 @@
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="./icons/sky-icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="./icons/sky-icon-192.png">
-    <link rel="stylesheet" href="./styles.css?v=9">
+    <link rel="stylesheet" href="./styles.css?v=11">
   </head>
   <body>
     <main id="sky-container" class="sky-night">
@@ -76,23 +76,31 @@
         </div>
       </section>
 
-      <section class="controls" aria-label="模擬控制">
-        <div class="slider-row">
-          <label for="time-slider">手動模擬時間</label>
-          <output id="slider-output" for="time-slider">12:00</output>
+      <section id="controls-panel" class="controls" aria-label="模擬控制">
+        <div class="controls-header">
+          <div>
+            <span class="controls-title">模擬控制</span>
+            <output id="slider-output" for="time-slider">12:00</output>
+          </div>
+          <button id="toggle-controls" class="compact-button" type="button" aria-expanded="true" aria-controls="controls-body">隱藏控制</button>
         </div>
-        <input type="range" id="time-slider" min="0" max="1439" value="720" step="1">
-        <div class="button-row">
-          <button id="play-slow" type="button" aria-pressed="false">慢速播放</button>
-          <button id="toggle-info" type="button" aria-pressed="false">精簡資訊列</button>
-          <button id="toggle-horizon" type="button" aria-pressed="false">顯示方位線</button>
-          <button id="use-now" type="button">現在時間</button>
-          <button id="retry-location" type="button">重新定位</button>
+        <div id="controls-body" class="controls-body">
+          <div class="slider-row">
+            <label for="time-slider">手動模擬時間</label>
+          </div>
+          <input type="range" id="time-slider" min="0" max="1439" value="720" step="1">
+          <div class="button-row">
+            <button id="play-slow" type="button" aria-pressed="false">慢速播放</button>
+            <button id="toggle-info" type="button" aria-pressed="false">精簡資訊列</button>
+            <button id="toggle-horizon" type="button" aria-pressed="false">顯示方位線</button>
+            <button id="use-now" type="button">現在時間</button>
+            <button id="retry-location" type="button">重新定位</button>
+          </div>
         </div>
       </section>
     </main>
 
     <script src="./suncalc-lite.js"></script>
-    <script src="./app.js?v=9"></script>
+    <script src="./app.js?v=11"></script>
   </body>
 </html>

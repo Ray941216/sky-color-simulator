@@ -7,7 +7,8 @@ const app = {
   playTimer: null,
   isLive: false,
   liveTimer: null,
-  showHorizon: false
+  showHorizon: false,
+  controlsCollapsed: false
 };
 
 const elements = {
@@ -17,6 +18,9 @@ const elements = {
   location: document.getElementById("location"),
   status: document.getElementById("status"),
   dateInput: document.getElementById("date-input"),
+  controlsPanel: document.getElementById("controls-panel"),
+  controlsBody: document.getElementById("controls-body"),
+  toggleControls: document.getElementById("toggle-controls"),
   timeSlider: document.getElementById("time-slider"),
   sliderOutput: document.getElementById("slider-output"),
   timeDisplay: document.getElementById("time-display"),
@@ -213,6 +217,24 @@ function updateAzimuthMarker(marker, labelElement, degrees) {
   labelElement.textContent = azimuthLabel(degrees);
 }
 
+function setControlsCollapsed(isCollapsed) {
+  app.controlsCollapsed = isCollapsed;
+  elements.controlsPanel.classList.toggle("is-collapsed", isCollapsed);
+  elements.controlsBody.hidden = isCollapsed;
+  elements.toggleControls.textContent = isCollapsed ? "展開控制" : "隱藏控制";
+  elements.toggleControls.setAttribute("aria-expanded", String(!isCollapsed));
+}
+
+function toggleControlPanel() {
+  setControlsCollapsed(!app.controlsCollapsed);
+}
+
+function initializeControlPanelDensity() {
+  const isSmallScreen = window.matchMedia("(max-width: 560px)").matches;
+  setControlsCollapsed(isSmallScreen);
+  setInfoCompact(isSmallScreen);
+}
+
 function updateLocationText() {
   const { lat, lon, label } = app.coords;
   const prefix = app.usingFallbackLocation ? `${label}: ` : "";
@@ -319,11 +341,15 @@ function toggleSlowPlayback() {
   app.playTimer = window.setInterval(advanceSimulationMinute, 360);
 }
 
+function setInfoCompact(isCompact) {
+  app.isCompact = isCompact;
+  elements.sky.classList.toggle("info-compact", isCompact);
+  elements.toggleInfo.textContent = isCompact ? "展開資訊" : "精簡資訊列";
+  elements.toggleInfo.setAttribute("aria-pressed", String(isCompact));
+}
+
 function toggleInfoDensity() {
-  app.isCompact = !app.isCompact;
-  elements.sky.classList.toggle("info-compact", app.isCompact);
-  elements.toggleInfo.textContent = app.isCompact ? "展開資訊" : "精簡資訊列";
-  elements.toggleInfo.setAttribute("aria-pressed", String(app.isCompact));
+  setInfoCompact(!app.isCompact);
 }
 
 function toggleHorizonOverlay() {
@@ -405,10 +431,12 @@ elements.dateInput.addEventListener("change", () => {
 elements.playSlow.addEventListener("click", toggleSlowPlayback);
 elements.toggleInfo.addEventListener("click", toggleInfoDensity);
 elements.toggleHorizon.addEventListener("click", toggleHorizonOverlay);
+elements.toggleControls.addEventListener("click", toggleControlPanel);
 elements.useNow.addEventListener("click", setNow);
 elements.retryLocation.addEventListener("click", requestLocation);
 
 elements.dateInput.value = dateInputValue(new Date());
+initializeControlPanelDensity();
 syncToRealTime();
 requestLocation();
 registerServiceWorker();

@@ -1,11 +1,11 @@
-const CACHE_NAME = "sky-color-v9";
+const CACHE_NAME = "sky-color-v11";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
-  "./styles.css?v=9",
+  "./styles.css?v=11",
   "./app.js",
-  "./app.js?v=9",
+  "./app.js?v=11",
   "./suncalc-lite.js",
   "./manifest.json",
   "./icons/sky-icon-192.png",
