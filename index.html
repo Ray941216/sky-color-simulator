@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#07111f">
+    <meta name="description" content="根據位置、日期與時間模擬天空顏色、太陽位置、日出與日落時間。">
+    <title>天空顏色模擬器</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./icons/sky-icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./icons/sky-icon-192.png">
+    <link rel="stylesheet" href="./styles.css?v=9">
+  </head>
+  <body>
+    <main id="sky-container" class="sky-night">
+      <div class="stars" aria-hidden="true"></div>
+      <div id="sun" aria-hidden="true"></div>
+      <aside id="horizon-overlay" class="horizon-overlay" aria-label="地平線與太陽方位" hidden>
+        <div class="compass-label north">北 0</div>
+        <div class="compass-label east">東 90</div>
+        <div class="compass-label south">南 180</div>
+        <div class="compass-label west">西 270</div>
+        <div class="horizon-line" aria-hidden="true"></div>
+        <div id="sunrise-marker" class="azimuth-marker sunrise-marker">
+          <span class="marker-dot"></span>
+          <strong>日出</strong>
+          <span id="sunrise-azimuth">--</span>
+        </div>
+        <div id="sunset-marker" class="azimuth-marker sunset-marker">
+          <span class="marker-dot"></span>
+          <strong>日落</strong>
+          <span id="sunset-azimuth">--</span>
+        </div>
+        <div id="current-marker" class="azimuth-marker current-marker">
+          <span class="marker-dot"></span>
+          <strong>目前</strong>
+          <span id="current-azimuth">--</span>
+        </div>
+      </aside>
+
+      <section class="info-panel" aria-labelledby="app-title">
+        <div class="top-row">
+          <div>
+            <h1 id="app-title">天空顏色模擬器</h1>
+            <p id="location" class="location-tag">正在取得位置...</p>
+          </div>
+          <div class="compact-summary" aria-hidden="true">
+            <strong id="compact-time">--:--</strong>
+            <span id="compact-phase">--</span>
+            <span>日出 <b id="compact-sunrise">--:--</b></span>
+            <span>日落 <b id="compact-sunset">--:--</b></span>
+          </div>
+          <span id="status" class="status-chip">初始化</span>
+        </div>
+
+        <div class="time-card">
+          <label for="date-input">模擬日期</label>
+          <input id="date-input" type="date">
+          <div id="time-display" class="time-display" aria-live="polite">--:--</div>
+          <div id="sky-phase" class="sky-phase">--</div>
+        </div>
+
+        <div class="data-grid" aria-label="日出與日落資訊">
+          <div>
+            <span class="data-label">日出</span>
+            <strong id="sunrise">--:--</strong>
+          </div>
+          <div>
+            <span class="data-label">日落</span>
+            <strong id="sunset">--:--</strong>
+          </div>
+          <div>
+            <span class="data-label">太陽高度</span>
+            <strong id="altitude">--</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="模擬控制">
+        <div class="slider-row">
+          <label for="time-slider">手動模擬時間</label>
+          <output id="slider-output" for="time-slider">12:00</output>
+        </div>
+        <input type="range" id="time-slider" min="0" max="1439" value="720" step="1">
+        <div class="button-row">
+          <button id="play-slow" type="button" aria-pressed="false">慢速播放</button>
+          <button id="toggle-info" type="button" aria-pressed="false">精簡資訊列</button>
+          <button id="toggle-horizon" type="button" aria-pressed="false">顯示方位線</button>
+          <button id="use-now" type="button">現在時間</button>
+          <button id="retry-location" type="button">重新定位</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./suncalc-lite.js"></script>
+    <script src="./app.js?v=9"></script>
+  </body>
+</html>
